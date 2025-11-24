@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Schoolclass extends Model
+class Sport extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['osztaly_nev'];
+    protected $fillable = ['sport_nev'];
 
     public function students()
     {
-        return $this->hasMany(Student::class);
+        return $this->belongsToMany(Student::class, 'playingsports');
     }
 }
