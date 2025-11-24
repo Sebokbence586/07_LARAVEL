@@ -3,48 +3,40 @@
 namespace App\Http\Controllers;
 
 use App\Models\Schoolclass;
-use App\Http\Requests\StoreSchoolclassRequest;
-use App\Http\Requests\UpdateSchoolclassRequest;
+use Illuminate\Http\Request;
 
 class SchoolclassController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        return Schoolclass::with('students')->get();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreSchoolclassRequest $request)
+    public function show($id)
     {
-        //
+        return Schoolclass::with('students')->findOrFail($id);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Schoolclass $schoolclass)
+    public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'OsztályNev' => 'required|string|max:10',
+        ]);
+
+        return Schoolclass::create($validated);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateSchoolclassRequest $request, Schoolclass $schoolclass)
+    public function update(Request $request, $id)
     {
-        //
+        $class = Schoolclass::findOrFail($id);
+        $class->update($request->all());
+        return $class;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Schoolclass $schoolclass)
+    public function destroy($id)
     {
-        //
+        $class = Schoolclass::findOrFail($id);
+        $class->delete();
+        return response()->noContent();
     }
 }
