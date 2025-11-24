@@ -3,21 +3,16 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Schoolclass;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Schoolclass>
- */
 class SchoolclassFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
-    public function definition(): array
+    protected $model = Schoolclass::class;
+
+    public function definition()
     {
         return [
-            //
+            'osztaly_nev' => $this->faker->bothify('??###')
         ];
     }
 }
